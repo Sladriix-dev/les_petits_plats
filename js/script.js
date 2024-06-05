@@ -87,4 +87,47 @@ document.addEventListener("DOMContentLoaded", () => {
     displayRecipes(filteredRecipes);
     updateFilters(filteredRecipes);
   });
+
+  // Filtrage avancé
+  ingredientFilter.addEventListener("change", () => {
+    const selectedIngredient = ingredientFilter.value;
+    let filteredRecipes = recipes;
+
+    if (selectedIngredient) {
+      filteredRecipes = recipes.filter((recipe) =>
+        recipe.ingredients.some((ing) => ing.ingredient === selectedIngredient)
+      );
+    }
+
+    displayRecipes(filteredRecipes);
+    updateFilters(filteredRecipes);
+  });
+
+  applianceFilter.addEventListener("change", () => {
+    const selectedAppliance = applianceFilter.value;
+    let filteredRecipes = recipes;
+
+    if (selectedAppliance) {
+      filteredRecipes = recipes.filter(
+        (recipe) => recipe.appliance === selectedAppliance
+      );
+    }
+
+    displayRecipes(filteredRecipes);
+    updateFilters(filteredRecipes);
+  });
+
+  utensilFilter.addEventListener("change", () => {
+    const selectedUtensil = utensilFilter.value;
+    let filteredRecipes = recipes;
+
+    if (selectedUtensil) {
+      filteredRecipes = recipes.filter((recipe) =>
+        recipe.ustensils.includes(selectedUtensil)
+      );
+    }
+
+    displayRecipes(filteredRecipes);
+    updateFilters(filteredRecipes);
+  });
 });
