@@ -21,16 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     } min</div>
                 </div>
                 <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">${recipe.name}</h2>
-                    <p class="text-gray-600 uppercase mb-2">Recette</p>
-                    <p class="mb-4">${truncateText(recipe.description, 100)}</p>
-                    <p class="text-gray-600 uppercase mb-2">Ingrédients</p>
+                    <h2 class="text-xl font-bold mb-5">${recipe.name}</h2>
+                    <p class="text-gray-500 uppercase mb-2">Recette</p>
+                    <p class="mb-5">${truncateText(recipe.description, 100)}</p>
+                    <p class="text-gray-500 uppercase mb-2">Ingrédients</p>
                     <div class="grid grid-cols-2 gap-4">
                         ${recipe.ingredients
                           .map(
                             (ing) => `
                             <div>
-                                <p class="font-bold">${ing.ingredient}</p>
+                                <p>${ing.ingredient}</p>
                                 ${
                                   ing.quantity
                                     ? `<p class="text-gray-500">${
