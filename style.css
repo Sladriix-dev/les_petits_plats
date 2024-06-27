@@ -1,6 +1,5 @@
 .custom-header-height {
     height: 32rem;
-    /* Augmentez cette valeur selon vos besoins */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -33,7 +32,6 @@ header p {
     font-size: 2.5rem;
     font-weight: bold;
     color: #FFD15B;
-    /* Yellow color for the subtitle */
     margin-top: 20px;
 }
 
@@ -45,7 +43,6 @@ header .search-bar {
 
 header .search-bar input {
     width: 75%;
-    /* Ajustez la largeur de l'input */
     padding: 15px;
     border: none;
     border-radius: 5px 0 0 5px;
@@ -55,7 +52,6 @@ header .search-bar input {
 header .search-bar button {
     padding: 15px;
     background-color: #FFD700;
-    /* Yellow color for the button */
     color: white;
     border: none;
     border-radius: 0 5px 5px 0;
@@ -77,4 +73,34 @@ header .search-bar button svg {
 
 .relative .w-2.h-2 {
     z-index: 3;
+}
+
+#search {
+    height: 5vh;
+}
+
+.search-container {
+    position: relative;
+}
+.search-input {
+    padding-right: 5rem;
+}
+.search-icon, .clear-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.search-icon {
+    right: 1.5rem;
+    background: black;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+.clear-icon {
+    right: 4rem;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
 }
