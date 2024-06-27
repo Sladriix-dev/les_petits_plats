@@ -76,7 +76,7 @@ header .search-bar button svg {
 }
 
 #search {
-    height: 5vh;
+    height: 6vh;
 }
 
 .search-container {
@@ -95,10 +95,10 @@ header .search-bar button svg {
     background: black;
     color: white;
     padding: 0.5rem;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
 }
 .clear-icon {
-    right: 4rem;
+    right: 4.2rem;
     cursor: pointer;
 }
 .hidden {

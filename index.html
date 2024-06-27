@@ -16,14 +16,14 @@
         <div class="relative container mx-auto p-4 flex flex-col justify-center items-center h-full text-center">
             <p class="text-4xl font-bold mt-4">CHERCHEZ PARMI PLUS DE 1500 RECETTES<br>DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</p>
             <div class="mt-8 flex justify-center w-9/12 px-4 search-container">
-                <input type="text" id="search" class="search-input w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Rechercher une recette, un ingrédient, ..." oninput="handleInput(this)">
+                <input type="text" id="search" class="search-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Rechercher une recette, un ingrédient, ..." oninput="handleInput(this)">
                 <button class="search-icon">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.41-1.41l4.3 4.3a1 1 0 01-1.42 1.42l-4.29-4.3zm-4.9-2.32a6 6 0 100-12 6 6 0 000 12z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
                 <button class="clear-icon hidden" onclick="clearSearch()">
-                    <svg class="w-7 h-7 text-gray-500 hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-8 h-8 text-gray-500 hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
@@ -32,24 +32,24 @@
     </header>
 
     <main class="container mx-auto p-4">
-        <div class="flex space-x-4 mb-4">
+        <div class="flex space-x-4 mb-4 gap-16">
             <div>
-                <select id="ingredient-filter" class="p-2 border border-gray-300 rounded">
+                <select id="ingredient-filter" class="p-2 border border-gray-300 w-36 rounded-lg bg-white">
                     <option value="">Ingrédients</option>
                 </select>
             </div>
             <div>
-                <select id="appliance-filter" class="p-2 border border-gray-300 rounded">
+                <select id="appliance-filter" class="p-2 border border-gray-300 w-36 rounded-lg bg-white">
                     <option value="">Appareils</option>
                 </select>
             </div>
             <div>
-                <select id="utensil-filter" class="p-2 border border-gray-300 rounded">
+                <select id="utensil-filter" class="p-2 border border-gray-300 w-36 rounded-lg bg-white">
                     <option value="">Ustensiles</option>
                 </select>
             </div>
         </div>
-        <div id="recipes-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div id="recipes-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             <!-- Les cartes de recettes seront insérées ici dynamiquement -->
         </div>
     </main>

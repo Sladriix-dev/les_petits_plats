@@ -13,13 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
           recipeCard.className = "bg-white rounded-lg shadow-md overflow-hidden";
           recipeCard.innerHTML = `
               <div class="relative">
-                  <img src="images/${recipe.image}" alt="${recipe.name}" class="w-full h-48 object-cover">
+                  <img src="images/${recipe.image}" alt="${recipe.name}" class="w-full h-72 object-cover">
                   <div class="absolute top-2 right-2 bg-yellow-400 text-black px-2 py-1 rounded">${recipe.time} min</div>
               </div>
-              <div class="p-4">
-                  <h2 class="text-xl font-bold mb-2">${recipe.name}</h2>
+              <div class="p-6">
+                  <h2 class="text-xl font-bold mb-8">${recipe.name}</h2>
                   <p class="text-gray-600 uppercase mb-2">Recette</p>
-                  <p class="mb-4">${truncateText(recipe.description, 100)}</p>
+                  <p class="mb-8">${truncateText(recipe.description, 100)}</p>
                   <p class="text-gray-600 uppercase mb-2">Ingrédients</p>
                   <div class="grid grid-cols-2 gap-4">
                       ${recipe.ingredients.map((ing) => `
