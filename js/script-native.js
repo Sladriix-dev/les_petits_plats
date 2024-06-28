@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ingredientFilter = document.getElementById("ingredient-filter");
   const applianceFilter = document.getElementById("appliance-filter");
   const utensilFilter = document.getElementById("utensil-filter");
+  const recipeCount = document.getElementById("recipe-count");
 
   const updateFilters = (recipes) => {
     const ingredients = new Set();
@@ -43,91 +44,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  updateFilters(recipes);
+  const updateRecipeCount = (count) => {
+    recipeCount.textContent = `${count} recettes`;
+  };
 
-  searchBar.addEventListener("input", (e) => {
-    const query = e.target.value.toLowerCase();
-    let filteredRecipes = [];
-
-    if (query.length >= 3) {
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (
-          recipe.name.toLowerCase().includes(query) ||
-          recipe.ingredients.some((ing) =>
-            ing.ingredient.toLowerCase().includes(query)
-          ) ||
-          recipe.description.toLowerCase().includes(query)
-        ) {
-          filteredRecipes.push(recipe);
-        }
-      }
-    } else {
-      filteredRecipes = recipes;
-    }
-
-    window.displayRecipes(filteredRecipes);
-    updateFilters(filteredRecipes);
-  });
-
-  ingredientFilter.addEventListener("change", () => {
+  const filterRecipes = () => {
+    const query = searchBar.value.toLowerCase();
     const selectedIngredient = ingredientFilter.value;
-    let filteredRecipes = [];
+    const selectedAppliance = applianceFilter.value;
+    const selectedUtensil = utensilFilter.value;
+    let filteredRecipes = recipes.filter((recipe) => {
+      return (
+        recipe.name.toLowerCase().includes(query) ||
+        recipe.ingredients.some((ing) =>
+          ing.ingredient.toLowerCase().includes(query)
+        ) ||
+        recipe.description.toLowerCase().includes(query)
+      );
+    });
 
     if (selectedIngredient) {
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (
-          recipe.ingredients.some(
-            (ing) => ing.ingredient === selectedIngredient
-          )
-        ) {
-          filteredRecipes.push(recipe);
-        }
-      }
-    } else {
-      filteredRecipes = recipes;
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.ingredients.some((ing) => ing.ingredient === selectedIngredient)
+      );
     }
-
-    window.displayRecipes(filteredRecipes);
-    updateFilters(filteredRecipes);
-  });
-
-  applianceFilter.addEventListener("change", () => {
-    const selectedAppliance = applianceFilter.value;
-    let filteredRecipes = [];
 
     if (selectedAppliance) {
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (recipe.appliance === selectedAppliance) {
-          filteredRecipes.push(recipe);
-        }
-      }
-    } else {
-      filteredRecipes = recipes;
+      filteredRecipes = filteredRecipes.filter(
+        (recipe) => recipe.appliance === selectedAppliance
+      );
     }
-
-    window.displayRecipes(filteredRecipes);
-    updateFilters(filteredRecipes);
-  });
-
-  utensilFilter.addEventListener("change", () => {
-    const selectedUtensil = utensilFilter.value;
-    let filteredRecipes = [];
 
     if (selectedUtensil) {
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        if (recipe.ustensils.includes(selectedUtensil)) {
-          filteredRecipes.push(recipe);
-        }
-      }
-    } else {
-      filteredRecipes = recipes;
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        recipe.ustensils.includes(selectedUtensil)
+      );
     }
 
-    window.displayRecipes(filteredRecipes);
+    displayRecipes(filteredRecipes);
     updateFilters(filteredRecipes);
-  });
+    updateRecipeCount(filteredRecipes.length);
+  };
+
+  searchBar.addEventListener("input", filterRecipes);
+  ingredientFilter.addEventListener("change", filterRecipes);
+  applianceFilter.addEventListener("change", filterRecipes);
+  utensilFilter.addEventListener("change", filterRecipes);
+
+  displayRecipes(recipes);
+  updateFilters(recipes);
+  updateRecipeCount(recipes.length);
 });
