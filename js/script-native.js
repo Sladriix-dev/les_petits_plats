@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const searchBar = document.getElementById("search-bar");
+  const searchBar = document.getElementById("search");
   const ingredientFilter = document.getElementById("ingredient-filter");
   const applianceFilter = document.getElementById("appliance-filter");
   const utensilFilter = document.getElementById("utensil-filter");
