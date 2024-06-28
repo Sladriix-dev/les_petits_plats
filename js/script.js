@@ -18,13 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
               <div class="p-6">
                   <h2 class="text-xl font-bold mb-8">${recipe.name}</h2>
-                  <p class="text-gray-600 uppercase mb-2">Recette</p>
+                  <p class="text-gray-600 uppercase mb-4">Recette</p>
                   <p class="mb-8">${truncateText(recipe.description, 100)}</p>
-                  <p class="text-gray-600 uppercase mb-2">Ingrédients</p>
+                  <p class="text-gray-600 uppercase mb-4">Ingrédients</p>
                   <div class="grid grid-cols-2 gap-4">
                       ${recipe.ingredients.map((ing) => `
                           <div>
-                              <p class="font-bold">${ing.ingredient}</p>
+                              <p>${ing.ingredient}</p>
                               ${ing.quantity ? `<p class="text-gray-500">${ing.quantity} ${ing.unit || ""}</p>` : '<p class="text-gray-500">-</p>'}
                           </div>
                       `).join("")}
