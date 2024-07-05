@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
           recipeCard.innerHTML = `
               <div class="relative">
                   <img src="images/${recipe.image}" alt="${recipe.name}" class="w-full h-72 object-cover">
-                  <div class="absolute top-4 right-4 bg-yellow-400 text-black px-2 py-1 rounded-full">${recipe.time} min</div>
+                  <div class="absolute top-4 right-4 bg-yellow-300 text-black px-2 py-1 rounded-full">${recipe.time} min</div>
               </div>
               <div class="p-6">
                   <h2 class="text-xl font-bold mb-8">${recipe.name}</h2>
