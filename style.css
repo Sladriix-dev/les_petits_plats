@@ -167,3 +167,7 @@ header .search-bar .fa-search {
 .visible {
     display: block;
 }
+
+.tags {
+    justify-content: space-between;
+}

@@ -42,55 +42,57 @@
     </header>
 
     <main class="container mx-auto p-4">
-        <div class="flex space-x-4 gap-16">
-            <div class="relative">
-                <button id="ingredient-filter-btn"
-                    class="p-2 border border-gray-300 h-12 w-36 rounded-lg bg-white">Ingrédients</button>
-                <div id="ingredient-filter-container"
-                    class="absolute mt-1 w-36 bg-white border border-gray-300 rounded-lg hidden z-50">
-                    <div class="flex items-center p-2 border-b border-gray-300">
-                        <input type="text" id="ingredient-filter" class="p-2 w-full" placeholder="Rechercher">
-                        <button id="clear-ingredient-filter"
-                            class="ml-2 text-gray-500 hover:text-gray-700">&times;</button>
+        <div class="flex justify-between items-center">
+            <div class="flex space-x-4 gap-16">
+                <div class="relative">
+                    <button id="ingredient-filter-btn"
+                        class="p-2 border border-gray-300 h-12 w-36 rounded-lg bg-white">Ingrédients</button>
+                    <div id="ingredient-filter-container"
+                        class="absolute mt-1 w-36 bg-white border border-gray-300 rounded-lg hidden z-50">
+                        <div class="flex items-center p-2 border-b border-gray-300">
+                            <input type="text" id="ingredient-filter" class="p-2 w-full" placeholder="Rechercher">
+                            <button id="clear-ingredient-filter"
+                                class="ml-2 text-gray-500 hover:text-gray-700">&times;</button>
+                        </div>
+                        <div id="ingredient-options" class="max-h-40 overflow-y-auto">
+                            <!-- Options dynamiques -->
+                        </div>
                     </div>
-                    <div id="ingredient-options" class="max-h-40 overflow-y-auto">
-                        <!-- Options dynamiques -->
+                </div>
+                <div class="relative">
+                    <button id="appliance-filter-btn"
+                        class="p-2 border border-gray-300 h-12 w-36 rounded-lg bg-white">Appareils</button>
+                    <div id="appliance-filter-container"
+                        class="absolute mt-1 w-36 bg-white border border-gray-300 rounded-lg hidden z-50">
+                        <div class="flex items-center p-2 border-b border-gray-300">
+                            <input type="text" id="appliance-filter" class="p-2 w-full" placeholder="Rechercher">
+                            <button id="clear-appliance-filter"
+                                class="ml-2 text-gray-500 hover:text-gray-700">&times;</button>
+                        </div>
+                        <div id="appliance-options" class="max-h-40 overflow-y-auto">
+                            <!-- Options dynamiques -->
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <button id="utensil-filter-btn"
+                        class="p-2 border border-gray-300 h-12 w-36 rounded-lg bg-white">Ustensiles</button>
+                    <div id="utensil-filter-container"
+                        class="absolute mt-1 w-36 bg-white border border-gray-300 rounded-lg hidden z-50">
+                        <div class="flex items-center p-2 border-b border-gray-300">
+                            <input type="text" id="utensil-filter" class="p-2 w-full" placeholder="Rechercher">
+                            <button id="clear-utensil-filter"
+                                class="ml-2 text-gray-500 hover:text-gray-700">&times;</button>
+                        </div>
+                        <div id="utensil-options" class="max-h-40 overflow-y-auto">
+                            <!-- Options dynamiques -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="relative">
-                <button id="appliance-filter-btn"
-                    class="p-2 border border-gray-300 h-12 w-36 rounded-lg bg-white">Appareils</button>
-                <div id="appliance-filter-container"
-                    class="absolute mt-1 w-36 bg-white border border-gray-300 rounded-lg hidden z-50">
-                    <div class="flex items-center p-2 border-b border-gray-300">
-                        <input type="text" id="appliance-filter" class="p-2 w-full" placeholder="Rechercher">
-                        <button id="clear-appliance-filter"
-                            class="ml-2 text-gray-500 hover:text-gray-700">&times;</button>
-                    </div>
-                    <div id="appliance-options" class="max-h-40 overflow-y-auto">
-                        <!-- Options dynamiques -->
-                    </div>
-                </div>
-            </div>
-            <div class="relative">
-                <button id="utensil-filter-btn"
-                    class="p-2 border border-gray-300 h-12 w-36 rounded-lg bg-white">Ustensiles</button>
-                <div id="utensil-filter-container"
-                    class="absolute mt-1 w-36 bg-white border border-gray-300 rounded-lg hidden z-50">
-                    <div class="flex items-center p-2 border-b border-gray-300">
-                        <input type="text" id="utensil-filter" class="p-2 w-full" placeholder="Rechercher">
-                        <button id="clear-utensil-filter"
-                            class="ml-2 text-gray-500 hover:text-gray-700">&times;</button>
-                    </div>
-                    <div id="utensil-options" class="max-h-40 overflow-y-auto">
-                        <!-- Options dynamiques -->
-                    </div>
-                </div>
-            </div>
+            <div id="recipe-count" class="text-right font-bold"></div>
         </div>
         <div id="selected-filters" class="flex space-x-2 mt-4"></div>
-        <div id="recipe-count" class="mt-4"></div>
         <div id="recipes-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             <!-- Les cartes de recettes seront insérées ici dynamiquement -->
         </div>

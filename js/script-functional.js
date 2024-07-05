@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const clearIngredientFilter = document.getElementById("clear-ingredient-filter");
   const clearApplianceFilter = document.getElementById("clear-appliance-filter");
   const clearUtensilFilter = document.getElementById("clear-utensil-filter");
+  const clearSearchIcon = document.querySelector(".clear-icon");
 
   let selectedFilters = {
     ingredients: [],
@@ -75,10 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.keys(selectedFilters).forEach((filterType) => {
       selectedFilters[filterType].forEach((filter) => {
         const tag = document.createElement('div');
-        tag.className = 'bg-yellow-500 text-white px-2 py-1 rounded-lg flex items-center';
+        tag.className = 'bg-yellow-300 text-black h-12 w-36 space-y-3 px-2 py-1 rounded-lg flex items-center tags';
         tag.textContent = filter;
         const removeIcon = document.createElement('span');
-        removeIcon.className = 'ml-2 cursor-pointer';
+        removeIcon.className = 'ml-2 cursor-pointer text-2xl';
         removeIcon.innerHTML = '&times;';
         removeIcon.addEventListener('click', () => {
           selectedFilters[filterType] = selectedFilters[filterType].filter((item) => item !== filter);
@@ -154,10 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const closeAllFilterContainers = () => {
-    ingredientFilterContainer.classList.add('hidden');
-    applianceFilterContainer.classList.add('hidden');
-    utensilFilterContainer.classList.add('hidden');
+  const clearSearch = () => {
+    searchBar.value = '';
+    filterRecipes(); // Re-filter recipes when search input is cleared
+    updateFilters(recipes); // Update the filter options
   };
 
   ingredientFilter.addEventListener('focus', () => {
@@ -245,6 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   searchBar.addEventListener("input", filterRecipes);
+
+  clearSearchIcon.addEventListener('click', clearSearch);
 
   displayRecipes(recipes);
   updateFilters(recipes);
