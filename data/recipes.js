@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const recipes = [
   {
     id: 1,
@@ -1826,3 +1827,5 @@ const recipes = [
     ustensils: ["rouleau à patisserie", "fouet"],
   },
 ];
+
+/* eslint-enable no-unused-vars */
