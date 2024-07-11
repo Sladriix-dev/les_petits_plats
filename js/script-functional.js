@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const clearUtensilFilter = document.getElementById("clear-utensil-filter");
   const clearSearchIcon = document.querySelector(".clear-icon");
+  const recipesContainer = document.getElementById("recipes-container");
 
   let selectedFilters = {
     ingredients: [],
@@ -60,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
       optionElement.className = "p-2 cursor-pointer hover:bg-gray-200";
       optionElement.textContent = option;
       optionElement.addEventListener("click", () => {
-        console.log(`Clicked on ${option} in ${filterType}-options`);
         handleOptionSelect(filterType, option);
         closeFilterContainer(filterType);
       });
@@ -69,23 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleOptionSelect = (filterType, option) => {
-    console.log(`Trying to select filter: ${option} for ${filterType}`);
     if (
       selectedFilters[filterType] &&
       !selectedFilters[filterType].includes(option)
     ) {
-      console.log(`Selected filter: ${option} for ${filterType}`);
       selectedFilters[filterType].push(option);
       renderSelectedFilters();
       filterRecipes();
-    } else {
-      console.log(`Filter type ${filterType} or option ${option} is invalid.`);
     }
   };
 
   const renderSelectedFilters = () => {
     selectedFiltersContainer.innerHTML = "";
-    console.log("Rendering selected filters:", selectedFilters);
     Object.keys(selectedFilters).forEach((filterType) => {
       selectedFilters[filterType].forEach((filter) => {
         const tag = document.createElement("div");
@@ -110,11 +105,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const updateRecipeCount = (count) => {
     recipeCount.textContent = `${count} recettes`;
-    console.log(`Updated recipe count: ${count}`);
   };
 
   const filterRecipes = () => {
     const query = searchBar.value.toLowerCase();
+    if (
+      query.length < 3 &&
+      selectedFilters.ingredients.length === 0 &&
+      selectedFilters.appliances.length === 0 &&
+      selectedFilters.utensils.length === 0
+    ) {
+      displayRecipes(recipes);
+      updateFilters(recipes);
+      updateRecipeCount(recipes.length);
+      return;
+    }
+
     let filteredRecipes = recipes.filter((recipe) => {
       return (
         recipe.name.toLowerCase().includes(query) ||
@@ -126,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     Object.keys(selectedFilters).forEach((filterType) => {
-      console.log(`Filtering recipes by ${filterType}`);
       if (selectedFilters[filterType].length > 0) {
         filteredRecipes = filteredRecipes.filter((recipe) => {
           if (filterType === "ingredients") {
@@ -144,7 +149,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    displayRecipes(filteredRecipes);
+    if (filteredRecipes.length === 0) {
+      recipesContainer.innerHTML = `
+        <div class="col-span-3 text-center">
+          <p class="text-xl font-semibold text-gray-700">Aucune recette ne contient "${searchBar.value}" vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>
+        </div>
+      `;
+    } else {
+      displayRecipes(filteredRecipes);
+    }
     updateFilters(filteredRecipes);
     updateRecipeCount(filteredRecipes.length);
   };
