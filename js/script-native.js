@@ -28,11 +28,57 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const clearUtensilFilter = document.getElementById("clear-utensil-filter");
   const clearSearchIcon = document.querySelector(".clear-icon");
+  const recipesContainer = document.getElementById("recipes-container");
 
   let selectedFilters = {
     ingredients: [],
     appliances: [],
     utensils: [],
+  };
+
+  const sanitizeInput = (input) => {
+    return input.replace(/[&<>"'`=/]/g, (char) => {
+      return (
+        {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+          "/": "&#x2F;",
+          "`": "&#x60;",
+          "=": "&#x3D;",
+        }[char] || char
+      );
+    });
+  };
+
+  const stringIncludes = (str, query) => {
+    for (let i = 0; i < str.length - query.length + 1; i++) {
+      if (str.substring(i, i + query.length) === query) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const arrayFilter = (array, callback) => {
+    const result = [];
+    for (let i = 0; i < array.length; i++) {
+      if (callback(array[i])) {
+        result.push(array[i]);
+      }
+    }
+    return result;
+  };
+
+  const arrayIncludes = (array, value) => {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        return true;
+      }
+    }
+    return false;
   };
 
   const updateFilters = (recipes) => {
@@ -73,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const handleOptionSelect = (filterType, option) => {
     if (
       selectedFilters[filterType] &&
-      !selectedFilters[filterType].includes(option)
+      !arrayIncludes(selectedFilters[filterType], option)
     ) {
       selectedFilters[filterType].push(option);
       renderSelectedFilters();
@@ -83,9 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderSelectedFilters = () => {
     selectedFiltersContainer.innerHTML = "";
-    Object.keys(selectedFilters).forEach((filterType) => {
-      for (let i = 0; i < selectedFilters[filterType].length; i++) {
-        const filter = selectedFilters[filterType][i];
+    const filterTypes = Object.keys(selectedFilters);
+    for (let i = 0; i < filterTypes.length; i++) {
+      const filterType = filterTypes[i];
+      for (let j = 0; j < selectedFilters[filterType].length; j++) {
+        const filter = selectedFilters[filterType][j];
         const tag = document.createElement("div");
         tag.className =
           "bg-yellow-300 text-black h-12 w-36 space-y-3 px-2 py-1 rounded-lg flex items-center tags";
@@ -94,7 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
         removeIcon.className = "ml-2 cursor-pointer text-2xl";
         removeIcon.innerHTML = "&times;";
         removeIcon.addEventListener("click", () => {
-          selectedFilters[filterType] = selectedFilters[filterType].filter(
+          selectedFilters[filterType] = arrayFilter(
+            selectedFilters[filterType],
             (item) => item !== filter
           );
           renderSelectedFilters();
@@ -103,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tag.appendChild(removeIcon);
         selectedFiltersContainer.appendChild(tag);
       }
-    });
+    }
   };
 
   const updateRecipeCount = (count) => {
@@ -111,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const filterRecipes = () => {
-    const query = searchBar.value.toLowerCase();
+    const query = sanitizeInput(searchBar.value.toLowerCase());
     if (
       query.length < 3 &&
       selectedFilters.ingredients.length === 0 &&
@@ -128,39 +177,42 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i];
       if (
-        recipe.name.toLowerCase().includes(query) ||
+        stringIncludes(recipe.name.toLowerCase(), query) ||
         recipe.ingredients.some((ing) =>
-          ing.ingredient.toLowerCase().includes(query)
+          stringIncludes(ing.ingredient.toLowerCase(), query)
         ) ||
-        recipe.description.toLowerCase().includes(query)
+        stringIncludes(recipe.description.toLowerCase(), query)
       ) {
         filteredRecipes.push(recipe);
       }
     }
 
-    Object.keys(selectedFilters).forEach((filterType) => {
+    const filterTypes = Object.keys(selectedFilters);
+    for (let i = 0; i < filterTypes.length; i++) {
+      const filterType = filterTypes[i];
       if (selectedFilters[filterType].length > 0) {
-        filteredRecipes = filteredRecipes.filter((recipe) => {
+        filteredRecipes = arrayFilter(filteredRecipes, (recipe) => {
           if (filterType === "ingredients") {
             return selectedFilters[filterType].every((filter) =>
               recipe.ingredients.some((ing) => ing.ingredient === filter)
             );
           } else if (filterType === "appliances") {
-            return selectedFilters[filterType].includes(recipe.appliance);
+            return arrayIncludes(selectedFilters[filterType], recipe.appliance);
           } else if (filterType === "utensils") {
             return selectedFilters[filterType].every((filter) =>
-              recipe.ustensils.includes(filter)
+              arrayIncludes(recipe.ustensils, filter)
             );
           }
         });
       }
-    });
+    }
 
     if (filteredRecipes.length === 0) {
-      const recipesContainer = document.getElementById("recipes-container");
       recipesContainer.innerHTML = `
         <div class="col-span-3 text-center">
-          <p class="text-xl font-semibold text-gray-700">Aucune recette ne contient "${searchBar.value}" vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>
+          <p class="text-xl font-semibold text-gray-700">Aucune recette ne contient "${sanitizeInput(
+            searchBar.value
+          )}" vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>
         </div>
       `;
     } else {
@@ -171,11 +223,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleInput = (input, container) => {
-    const query = input.value.toLowerCase();
+    const query = sanitizeInput(input.value.toLowerCase());
     const options = Array.from(container.children);
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
-      if (option.textContent.toLowerCase().includes(query)) {
+      if (stringIncludes(option.textContent.toLowerCase(), query)) {
         option.classList.remove("hidden");
       } else {
         option.classList.add("hidden");
